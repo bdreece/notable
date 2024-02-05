@@ -1,0 +1,46 @@
+name: CI
+
+on: [push]
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: 1.21
+
+      - name: Install tools
+        run: |
+          sudo apt install -y protobuf-compiler
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+      - name: Install dependencies
+        run: |
+          go mod download
+          go mod verify
+
+      - name: Generate and build
+        run: |
+          mkdir -p bin
+          go generate -v ./...
+          go build -v -o ./bin ./...
+
+  yarn:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: yarn workspace @notable/ui build
