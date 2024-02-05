@@ -1,0 +1,31 @@
+version: "2"
+sql:
+  - engine: "postgresql"
+    schema: "../migrations"
+    queries: "../pkg/server/database/sql"
+    gen:
+      go:
+        package: "database"
+        out: "../pkg/server/database"
+        emit_interface: true
+        emit_empty_slices: true
+        output_db_file_name: db.sql.go
+        output_models_file_name: models.sql.go
+        output_querier_file_name: querier.sql.go
+        overrides:
+          - db_type: "timestamp"
+            go_type:
+              import: "time"
+              type: "Time"
+          - db_type: "uuid"
+            go_type:
+              import: "github.com/google/uuid"
+              type: "UUID"
+          - db_type: "macaddr"
+            go_type:
+              import: "net"
+              type: "HardwareAddr"
+          - db_type: "inet"
+            go_type:
+              import: "net"
+              type: "IPNet"

@@ -1,0 +1,127 @@
+{{ template "layout.gotmpl" . }}
+
+{{ define "title" }}notable &mdash; Sign Up{{ end }}
+
+{{ define "content" }}
+
+    <section class="my-4 mx-auto" style="max-width: 50%">
+        <h2 class="fw-normal mb-3">Register</h2>
+
+        <form
+            class="container"
+            hx-post="/register"
+            hx-target="#register-output"
+            hx-swap="outerHTML"
+        >
+            <div class="row mb-3">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input
+                            id="first-name"
+                            class="form-control"
+                            name="firstName"
+                            type="text"
+                            placeholder="First Name"
+                            required
+                        />
+
+                        <label for="first-name"> First Name </label>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input
+                            id="last-name"
+                            class="form-control"
+                            name="lastName"
+                            type="text"
+                            placeholder="Last Name"
+                            required
+                        />
+
+                        <label for="last-name"> Last Name </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input
+                            id="email"
+                            class="form-control"
+                            name="email"
+                            type="email"
+                            placeholder="Email Address"
+                            required
+                        />
+
+                        <label for="email"> Email Address </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input
+                            id="password"
+                            class="form-control"
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            autocomplete="new-password"
+                            required
+                        />
+
+                        <label for="password"> Password </label>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input
+                            id="confirm-password"
+                            class="form-control"
+                            name="confirmPassword"
+                            type="password"
+                            placeholder="Confirm Password"
+                            autocomplete="new-password"
+                            required
+                        />
+
+                        <label for="confirm-password"> Confirm Password </label>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                const password = document.getElementById('password');
+                document
+                    .getElementById('confirm-password')
+                    .addEventListener('change', e => {
+                        if (e.target.value !== password.value) {
+                            e.target.setCustomValidity(
+                                'Passwords do not match',
+                            );
+                        } else {
+                            e.target.setCustomValidity('');
+                        }
+                    });
+            </script>
+
+            <div id="register-output" class="text-center">
+                <div class="spinner-border htmx-indicator" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <button class="btn btn-primary w-50 mx-auto" type="submit">
+                    Sign Up
+                </button>
+            </div>
+        </form>
+    </section>
+{{ end }}

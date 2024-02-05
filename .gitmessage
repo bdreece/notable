@@ -1,0 +1,11 @@
+<type>(<scope>): <summary>
+# type:     build|ci|docs|feat|fix|perf|refactor|test
+# scope:    api|client|server|web
+#           (exceptions: packaging|migrations|[none])
+
+# <Describe the motivation behind this change - explain WHY you are making this
+# change. Wrap all lines at 80 characters.>
+
+# Fixes #<issue number>
+
+# ──────────────────────────────── 80 chars ───────────────────────────────────┤

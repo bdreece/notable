@@ -1,0 +1,6 @@
+logging:
+  file: ./tmp/client.log
+  level: -4
+
+printer:
+  device: /dev/lp0
